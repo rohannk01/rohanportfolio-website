@@ -1,0 +1,160 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap');
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #1e1e2f, #252547);
+  color: white;
+  overflow-x: hidden;
+  transition: background 0.5s ease, color 0.5s ease;
+}
+
+header {
+  width: 100%;
+  position: fixed;
+  background: rgba(0,0,0,0.5);
+  top: 0;
+  z-index: 100;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 60px;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: 700;
+}
+.logo span { color: #ff9800; }
+
+nav ul {
+  list-style: none;
+  display: flex;
+}
+nav ul li a {
+  color: white;
+  text-decoration: none;
+  padding: 10px 20px;
+  transition: 0.3s;
+}
+nav ul li a:hover, .active {
+  background: #ff9800;
+  border-radius: 5px;
+}
+
+/* Theme toggle button */
+.theme-btn {
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 22px;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+.theme-btn:hover {
+  transform: rotate(20deg);
+}
+
+/* Hero section */
+.hero {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 20px;
+}
+.hero .content h1 {
+  font-size: 3rem;
+  margin-bottom: 10px;
+}
+.hero .btn {
+  background: #ff9800;
+  padding: 10px 25px;
+  border: none;
+  color: white;
+  text-decoration: none;
+  border-radius: 30px;
+  transition: 0.3s;
+}
+.hero .btn:hover {
+  background: #ffb84d;
+}
+
+/* --- Typewriter --- */
+#typed-name {
+  border-right: 3px solid #ff9800;
+  white-space: nowrap;
+  overflow: hidden;
+  display: inline-block;
+  animation: blinkCursor 0.8s steps(2) infinite;
+  font-weight: 700;
+  color: #ff9800;
+}
+@keyframes blinkCursor {
+  0%, 100% { border-color: transparent; }
+  50% { border-color: #ff9800; }
+}
+
+/* --- Animations --- */
+.fade-in {
+  opacity: 0;
+  transition: opacity 1s ease-in;
+}
+.fade-in.visible {
+  opacity: 1;
+}
+.slide-left, .slide-right {
+  opacity: 0;
+  transition: all 1s ease-in-out;
+}
+.slide-left.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+.slide-right.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+.card {
+  background: rgba(255, 255, 255, 0.1);
+  margin: 20px;
+  padding: 20px;
+  border-radius: 15px;
+  transition: transform 0.3s, background 0.3s;
+  text-align: center;
+}
+.card:hover {
+  transform: translateY(-10px);
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* --- Section --- */
+.section {
+  padding: 120px 60px;
+  min-height: 100vh;
+  text-align: center;
+  animation: fadeInUp 1.5s ease;
+}
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(50px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- Light mode --- */
+body.light {
+  background: linear-gradient(135deg, #f2f2f2, #ffffff);
+  color: #222;
+}
+body.light nav ul li a:hover, body.light .active {
+  background: #222;
+  color: white;
+}
+body.light #typed-name {
+  color: #222;
+  border-color: #222;
+}
