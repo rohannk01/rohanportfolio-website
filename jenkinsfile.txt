@@ -1,0 +1,46 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                // Pull the latest code from GitHub
+                git branch: 'main',
+                    url: 'https://github.com/rohamnk01/rohanportfolio-website.git',
+                    credentialsId: '12ecfa16-252c-4740-b225-94a39fd9b37f'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                echo 'Building the portfolio project...'
+                // For static sites (HTML/CSS/JS), no actual build step is needed.
+                // But you can add minification or bundling here if required.
+            }
+        }
+
+        stage('Test') {
+            steps {
+                echo 'Running tests (if any)...'
+                // You can add testing tools here later.
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                echo 'Deploying the portfolio website...'
+                // For example, you can deploy to GitHub Pages or a web server.
+                // Add deployment commands here.
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Pipeline completed successfully!'
+        }
+        failure {
+            echo 'Pipeline failed!'
+        }
+    }
+}
