@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
   animatedItems.forEach(item => observer.observe(item));
 
   // Typewriter effect
-  const nameText = "Rohan Kumar";
+ /* const nameText = "Rohan";
   const typedName = document.getElementById("typed-name");
   const tagline = document.getElementById("tagline");
   let i = 0;
@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
       setTimeout(() => tagline.classList.add("visible"), 300);
     }
   }
-  typeWriter();
+  typeWriter();*/
 
   // Theme toggle
   const toggleBtn = document.getElementById("theme-toggle");
