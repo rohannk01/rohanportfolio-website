@@ -1,40 +1,56 @@
-// Jenkinsfile (Declarative Pipeline)
 pipeline {
-    agent any // Specifies that the pipeline can run on any available agent
+    agent any
 
-    stages {
-        stage('Checkout') {
-            steps {
-                git 'https://github.com/rohannk01/rohanportfolio-website.git' // Replace with your repository URL
-            }
-        }
-        stage('Build') {
-            steps {
-                sh 'mvn clean install' // Example for a Maven project, adjust for your build tool
-            }
-        }
-        stage('Test') {
-            steps {
-                sh 'mvn test' // Example for running tests
-            }
-        }
-        stage('Deploy') {
-            steps {
-                echo 'Deploying application...'
-                // Add deployment steps here, e.g., pushing to a server, deploying to a cloud platform
-            }
-        }
+    environment {
+
+        // Replace with your GitHub repository URL
+
+        REPO_URL = 'https://github.com/rohannk01/rohanportfolio-website.git'
+
+        // Replace with your Jenkins credential ID for GitHub
+
+        CREDENTIALS_ID = 'github_token' 
+        BRANCH = 'main' // Or your target branch
     }
 
-    post {
-        always {
-            echo 'Pipeline finished.'
+    stages {
+        stage('Checkout Code') {
+            steps {
+                git branch: env.BRANCH, 
+                    credentialsId: env.CREDENTIALS_ID, 
+                    url: env.REPO_URL
+            }
         }
-        success {
-            echo 'Pipeline succeeded!'
+
+        stage('Perform Actions') {
+            steps {
+                script {
+                    // Example: Create a new file or modify existing ones
+                    sh 'echo "Hello from Jenkins Pipeline" > new_file.txt'
+                    sh 'echo "Appended content" >> existing_file.txt' 
+                }
+            }
         }
-        failure {
-            echo 'Pipeline failed!'
+
+        stage('Commit and Push Changes') {
+            steps {
+                script {
+                    // Configure Git user for committing
+                    sh 'git config user.email "jenkins@example.com"'
+                    sh 'git config user.name "Jenkins Pipeline"'
+                    
+                    // Add changes to the staging area
+                    sh 'git add .'
+                    
+                    // Commit the changes
+                    sh 'git commit -m "Automated commit from Jenkins Pipeline"'
+                    
+                    // Push changes to the remote repository
+                    withCredentials([usernamePassword(credentialsId: env.CREDENTIALS_ID, passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
+                        sh "git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/rohannk01/rohanportfolio-website.git HEAD:${env.BRANCH}"
+                    }
+                }
+            }
         }
     }
 }
