@@ -9,7 +9,8 @@ pipeline {
 
         // Replace with your Jenkins credential ID for GitHub
 
-        CREDENTIALS_ID = 'github_token' 
+      //  CREDENTIALS_ID = 'github_token'
+ 
         BRANCH = 'main' // Or your target branch
     }
 
@@ -17,7 +18,9 @@ pipeline {
         stage('Checkout Code') {
             steps {
                 git branch: env.BRANCH, 
-                    credentialsId: env.CREDENTIALS_ID, 
+
+                 //   credentialsId: env.CREDENTIALS_ID, 
+
                     url: env.REPO_URL
             }
         }
@@ -46,8 +49,13 @@ pipeline {
                     sh 'git commit -m "Automated commit from Jenkins Pipeline"'
                     
                     // Push changes to the remote repository
-                    withCredentials([usernamePassword(credentialsId: env.CREDENTIALS_ID, passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
-                        sh "git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/rohannk01/rohanportfolio-website.git HEAD:${env.BRANCH}"
+
+                //    withCredentials([usernamePassword(credentialsId: env.CREDENTIALS_ID, passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
+                  //      sh "git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/rohannk01/rohanportfolio-website.git HEAD:${env.BRANCH}"
+
+
+		      withCredentiaals([string(credentialsId: 'token', variable:'GITHUB_TOKEN')]) {
+			  sh "git push https://${GITHUB_TOKEN}@github.com/rohannk01/rohanportfolio-website.git HEAD:${env.BRANCH}"		
                     }
                 }
             }
